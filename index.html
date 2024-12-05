@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEBSITE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+         /* CSS untuk mempercantik tampilan */
+         #home {
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            margin-top: 120px;
+            white-space: nowrap; /* Agar teks tidak terpotong */
+            overflow: hidden;
+        }
+     body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #881414; /* Menjadikan latar belakang utama hitam */
+    }
+
+    .container-wrapper {
+        max-width: 100%;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Supaya kontainer berada di tengah layar */
+    }
+
+    h1 {
+        text-align: center;
+        color: black;
+        margin-bottom: 30px;
+    }
+    .container {
+        max-width: 1000px;
+        margin: auto;
+        padding: 20px;
+        background: #881414;
+        border-radius: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Tetesan salju */
+    .rain .drop {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.8);
+        width: 10px; /* Ukuran salju */
+        height: 10px; /* Ukuran salju */
+        border-radius: 50%; /* Membuat salju bulat */
+        animation: drop-fall 6s linear infinite, sideways 5s ease-in-out infinite; /* Durasi lebih lama */
+    }
+
+    /* Animasi jatuh perlahan seperti salju */
+    @keyframes drop-fall {
+        0% {
+            top: -10px;
+        }
+        100% {
+            top: 100vh;
+        }
+    }
+
+    /* Efek melayang kiri-kanan seperti tertiup angin */
+    @keyframes sideways {
+        0% {
+            transform: translateX(0) rotate(0deg);
+        }
+        25% {
+            transform: translateX(20px) rotate(10deg);
+        }
+        50% {
+            transform: translateX(-20px) rotate(-10deg);
+        }
+        75% {
+            transform: translateX(15px) rotate(5deg);
+        }
+        100% {
+            transform: translateX(-15px) rotate(-5deg);
+        }
+    }
+    
+
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    button {
+        flex: 1;
+        padding: 10px 15px;
+        background-color: #B22222;
+        color: black;
+        border: none;
+        border-radius: 1px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+        font-size: 16px;
+        font-style: oblique;
+    }
+    button:hover {
+        background-color: White;
+        transform: translateY(-2px);
+    }
+    .card-container {
+        display: none;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    .card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 10px 10px 5px black;
+        margin: 10px;
+        padding: 20px;
+        flex: 1 1 calc(30% - 20px);
+        box-sizing: border-box;
+        transition: transform 0.4s;
+        text-align: center;
+        font-style: italic;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border: 2px solid #333;
+    }
+    th {
+        background-color: White;
+        color: black;
+    }
+    .gallery {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .gallery img {
+        width: calc(33% - 10px);
+        margin-bottom: 10px;
+        border-radius: 5px;
+        transition: transform 0.3s;
+    }
+</style>
+
+
+    
+    
+    <script>
+        const text = "SELAMAT DATANG DI WEBSITE XI TKR SMKN TAMBAKBOYO"; // Teks yang ingin dianimasikan
+    let index = 0;
+    const welcomeTextElement = document.getElementById('welcomeText');
+
+    function typeLetter() {
+        if (index < text.length) {
+            welcomeTextElement.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(typeLetter, 100); // Menunggu 100ms antara tiap huruf
+        }
+    }
+
+    // Memulai animasi setelah halaman dimuat
+    window.onload = typeLetter;
+        // JavaScript untuk membuat salju lebih lebat
+const rainContainer = document.querySelector('.rain');
+
+for (let i = 0; i < 100; i++) { // Atur jumlah salju (100 tetesan)
+    const drop = document.createElement('div');
+    drop.classList.add('drop');
+    const leftPosition = Math.random() * 100; // Posisi horizontal acak
+    const fallDuration = (Math.random() * 5 + 5).toFixed(2); // Durasi jatuh acak (5-10 detik)
+    const swayDuration = (Math.random() * 3 + 3).toFixed(2); // Durasi melayang acak (3-6 detik)
+
+    drop.style.left = `${leftPosition}%`;
+    drop.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
+    rainContainer.appendChild(drop);
+}
+        function toggleCards(cardType) {
+            const cardContainers = ['home','siswaCards', 'guruCards', 'piketCards', 'strukturCards', 'gallery', 'jadwalPelajaran', 'kegiatanKelas'];
+
+            // Sembunyikan semua kartu
+            cardContainers.forEach(id => {
+                const container = document.getElementById(id);
+                if (container) {
+                    container.style.display = id === cardType ? "flex" : "none";
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+     
+<!-- HTML untuk Rain dan Petir -->
+<div class="container">
+    <!-- Tambah lebih banyak tetesan salju -->
+<div class="rain">
+    <!-- Salju dengan variasi durasi -->
+    <div class="drop" style="left: 1%; animation-duration: 8s, 6s;"></div>
+    <div class="drop" style="left: 3%; animation-duration: 7s, 5s;"></div>
+    <div class="drop" style="left: 5%; animation-duration: 6s, 4s;"></div>
+    <div class="drop" style="left: 7%; animation-duration: 9s, 7s;"></div>
+    <div class="drop" style="left: 10%; animation-duration: 8s, 5s;"></div>
+    <div class="drop" style="left: 12%; animation-duration: 7s, 4s;"></div>
+    <div class="drop" style="left: 15%; animation-duration: 10s, 6s;"></div>
+    <div class="drop" style="left: 18%; animation-duration: 6s, 4s;"></div>
+    <div class="drop" style="left: 20%; animation-duration: 9s, 6s;"></div>
+    <div class="drop" style="left: 25%; animation-duration: 10s, 5s;"></div>
+    <div class="drop" style="left: 30%; animation-duration: 7s, 4s;"></div>
+    <div class="drop" style="left: 35%; animation-duration: 8s, 6s;"></div>
+    <div class="drop" style="left: 40%; animation-duration: 7s, 5s;"></div>
+    <div class="drop" style="left: 45%; animation-duration: 10s, 7s;"></div>
+    <div class="drop" style="left: 50%; animation-duration: 9s, 6s;"></div>
+    <div class="drop" style="left: 55%; animation-duration: 8s, 5s;"></div>
+    <div class="drop" style="left: 60%; animation-duration: 6s, 4s;"></div>
+    <div class="drop" style="left: 65%; animation-duration: 10s, 6s;"></div>
+    <div class="drop" style="left: 70%; animation-duration: 9s, 7s;"></div>
+    <div class="drop" style="left: 75%; animation-duration: 8s, 5s;"></div>
+    <div class="drop" style="left: 80%; animation-duration: 6s, 4s;"></div>
+    <div class="drop" style="left: 85%; animation-duration: 10s, 7s;"></div>
+    <div class="drop" style="left: 90%; animation-duration: 9s, 6s;"></div>
+    <div class="drop" style="left: 95%; animation-duration: 8s, 5s;"></div>
+</div>
+
+        <div id="home" class="Home">
+             <!-- Menambahkan Heading H1 untuk Judul -->
+             <h1 id="welcomeText"></h1>
+        </div>
+
+
+        <div class="button-container">
+            <button onclick="toggleCards('home')">Home</button>
+            <button onclick="toggleCards('siswaCards')">Data Siswa</button>
+            <button onclick="toggleCards('guruCards')">Data Guru</button>
+            <button onclick="toggleCards('piketCards')">Piket Kelas</button>
+            <button onclick="toggleCards('strukturCards')">Struktur Kelas</button>
+            <button onclick="toggleCards('jadwalPelajaran')">Jadwal Pelajaran</button>
+            <button onclick="toggleCards('kegiatanKelas')">Kegiatan Kelas</button>
+            <button onclick="toggleCards('gallery')">Galeri Foto</button>
+        </div>
+
+        <div id="home" class="Home" style="text-align: center; padding: 20px;">
+            <!-- Menambahkan Heading H1 untuk Judul -->
+            <h1 id="welcomeText" style="font-size: 36px; font-weight: bold; margin-top: 120px;">SELAMAT DATANG DI WEBSITE XI TKR SMKN TAMBAKBOYO</h1>
+        </div>
+        
+
+        <div id="siswaCards" class="card-container">
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="1. ABDULLAH ALI HAVID.jpg" alt="Foto Abdullah Ali Havid" style="width: 100px; height: 100px; margin-top: 30px;">
+                <h3>Abdullah Ali Havid</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left:250px; width: 65px; height: auto;">
+                <img src="3. ACHMAD RAFAELLINO DWI KURNIAWAN.jpg" alt="Foto Achmad Rafellino Dwi Kurniawan">
+                <h3>Achmad Rafellino Dwi Kurniawan</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="4. ADITYA PRATAMA PUTRA WAHYUDIANTO.jpg" alt="Foto Adtya Pratama Putra Wahyudianto">
+                <h3>Adtya Pratama Putra Wahyudianto</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="5. AFDHAL ULUM.jpg" alt="Foto Afdhal Ulum">
+                <h3>Afdhal Ulum</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="6. AHMAD ARIF MUZAKI.jpg" alt="Foto Ahmad Arif Muzaki">
+                <h3>Ahmad Arif Muzaki</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="7. AHMAD FADLI NUR IBAD.jpg" alt="Foto Ahmad Fadli Nur Ibad">
+                <h3>Ahmad Fadli Nur Ibad</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="8. AHMAD RISKY PUTRA INDRAWAN.jpg" alt="Foto Ahmad Risky Putra Indrawan">
+                <h3>Ahmad Risky Putra Indrawan</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="9. AHMAD ZAENAL PRAYOGI.jpg" alt="Foto Ahmad Zaenal Prayogi">
+                <h3>Ahmad Zaenal Prayogi</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="10. AHMAD ZAENI.jpg" alt="Foto Ahmad Zaeni">
+                <h3>Ahmad Zaeni</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="11. ALDI RAHMAKA.jpg" alt="Foto Aldi Rahmaka">
+                <h3>Aldi Rahmaka</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="12. ALDI RIZKI UTOMO.jpg" alt="Foto Aldi Rizki Utomo">
+                <h3>Aldi Rizki Utomo</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="13. ALFIN MAULANA.jpg" alt="Foto Alfin Maulana">
+                <h3>Alfin Maulana</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="14. ANDIK SAPUTRO.jpg" alt="Foto Andik Saputro">
+                <h3>Andik Saputro</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="15. ANDIKA ADI PRATAMA.jpg" alt="Foto Andika Adi Pratama">
+                <h3>Andika Adi Pratama</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="16. ANDIKA ARDI ANTO.jpg" alt="Foto Andika Ardi Anto">
+                <h3>Andika Ardi Anto</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="17. ARDIAN DWI NUGROHO.jpg" alt="Foto Ardian Dwi Nugroho">
+                <h3>Ardian Dwi Nugroho</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="18. BINTANG FEBRIANTO.jpg" alt="Foto Azzam Maulana">
+                <h3>Bintang Febrianto</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="19. DANDA AGUSTIAN ANDRIANO.jpg" alt="Foto Bagus Candra">
+                <h3>Danda Agustian Andriano</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="20. DARWITO.jpg" alt="Foto Bayu Aditya">
+                <h3>Darwito</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="21. DENI IRAWAN.jpg" alt="Foto Bima Dwi Putra">
+                <h3>Deni Irawan</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="22. DIAN ADI PUTRA.jpg" alt="Foto Dela Dwi Sari">
+                <h3>Dian Adi Putra</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="23. DIMAS ALIF FIRDUS.jpg" alt="Foto Dimas Rian">
+                <h3>Dimas Alif Firdaus</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="24. DIMAS GALANG RAMADHAN.jpg" alt="Foto Eko Prasetyo">
+                <h3>Dimas Galang Ramadhan</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="25. DIMAS HAIKAL EDI PRATAMA.jpg" alt="Foto Eko Rahman">
+                <h3>Dimas Haikal Edi Pratama</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="26. ERIK ISWAN.jpg" alt="Foto Evan Reza">
+                <h3>Erik Iswan</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="27. FAIZIN FAREL SOVIAN.jpg" alt="Foto Fandi">
+                <h3>Faizin Farel Sovian</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="28. FARIS ALI RIDHO.jpg" alt="Foto Farhan">
+                <h3>Faris Ali Ridho</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="29. FASIKHIN YAUMUL KHAFIT.jpg" alt="Foto Fathur">
+                <h3>Fasikhin Yaumul Khafit</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="30. FAYZA MARIA.jpg" alt="Foto Geri">
+                <h3>Fayza Maria</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="TKR.png" alt="Logo Kedua" style="position: absolute; top: 5px; left: 250px; width: 65px; height: auto;">
+                <img src="31. WIDYA.jpg" alt="Foto Gilang">
+                <h3>Widya</h3>
+                <p>Kelas: 11 TKR 1</p>
+            </div>
+          </div>
+
+        <div id="guruCards" class="card-container">
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="paksodikin.jpg" alt="Foto Ahmad Zainuri">
+                <h3>Pak Sodikin</h3>
+                <p>Jabatan: Guru Produktif Pilihan TKR</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="butika.jpg" alt="Foto Ainun Nisa">
+                <h3>Bu Tika</h3>
+                <p>Jabatan: Guru Bahasa Jawa</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="https://via.placeholder.com/100" alt="Foto Nuranisah">
+                <h3>Pak Ipung</h3>
+                <p>Jabatan: Guru PKK</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="pak desti.jpeg" alt="Foto Nuranisah">
+                <h3>Pak Destiawan</h3>
+                <p>Jabatan: Guru PJOK</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="buyuli.jpg" alt="Foto Nuranisah">
+                <h3>Bu Yuli</h3>
+                <p>Jabatan: Guru Sejarah</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="pakdidik.jpg" alt="Foto Nuranisah">
+                <h3>Pak Didik ariyanto</h3>
+                <p>Jabatan: Guru Matematika</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="bu fadah.jpg" alt="Foto Nuranisah">
+                <h3>Bu Muhimatul Ifadah</h3>
+                <p>Jabatan: Guru Bahasa Inggris</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="pakabdul.jpg" alt="Foto Nuranisah">
+                <h3>Pak Mukti</h3>
+                <p>Jabatan: Guru PPKN</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="bu yuli suci.jpeg" alt="Foto Nuranisah">
+                <h3>Bu Yulia</h3>
+                <p>Jabatan: Guru BK</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="bu nurul.jpeg" alt="Foto Nuranisah">
+                <h3>Bu Nurul Hamidya A</h3>
+                <p>Jabatan: Guru Bahasa Indonesia</p>
+            </div>
+            <div class="card" style="position: relative; text-align: center; padding: 20px;">
+                <img src="logosmknnn.png" alt="Logo" style="position: absolute; top: 10px; left: 10px; width: 40px; height: auto;">
+                <img src="pakhukam.jpg" alt="Foto Nuranisah">
+                <h3>Pak Hukam</h3>
+                <p>Jabatan: Guru PAI</p>
+            </div>
+        </div>
+
+        <div id="piketCards" class="card-container">
+            <div class="card">
+                <h3>Senin</h3>
+                <p> Abdullah Ali Havid</p>
+                <p> Achmad Rafellino Dwi Kurniawan</p>
+                <p> Adtya Pratama Putra Wahyudianto</p>
+                <p> Afdhal Ulum</p>
+                <p> Ahmad Arif Muzaki</p>
+            </div>
+            <div class="card">
+                <h3>Selasa</h3>
+                <p> Ahmad Fadli Nur Ibad</p>
+                <p> Ahmad Risky Putra Indrawan</p>
+                <p> Ahmad Zaenal Prayogi</p>
+                <p> Ahmad Zaeni</p>
+                <p> Aldi Rahmaka</p>
+            </div>
+            <div class="card">
+                <h3>Rabu</h3>
+                <p> Aldi Rizki Utomo</p>
+                <p> Ahmad Risky Putra Indrawan</p>
+                <p> Ahmad Zaenal Prayogi</p>
+                <p> Ahmad Zaeni</p>
+                <p> Aldi Rahmaka</p>
+            </div>
+            <div class="card">
+                <h3>Kamis</h3>
+                <p> Ardian Dwi Nugroho</p>
+                <p> Bintang Febrianto</p>
+                <p> Danda Agustian A</p>
+                <p> Darwito</p>
+                <p> Deniirawan</p>
+                <p> Dian Adiputra</p>
+                <p> Dimas Alif Firdaus</p>
+           </div>
+           <div class="card">
+                <h3>Jumat</h3>
+                <p> Faizin Fares Sovian</p>
+                <p> Farel Andriano</p>
+                <p> Faris Ali Ridho A</p>
+                <p> Fayza Maria</p>
+                <p> Widya</p>
+           </div>
+        </div>
+
+        <div id="strukturCards" class="card-container">
+            <!-- Kepala Sekolah -->
+            <div class="card" style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; max-width: 400px;">
+                <img src="pak agus.png" alt="Foto Agus Siswanto" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 15px;">
+                <div>
+                    <h3 style="margin: 0;">Kepala Sekolah</h3>
+                    <p style="margin: 5px 0 0;">AGUS SISWANTO</p>
+                </div>
+            </div>
+            
+            <!-- Kepala Jurusan -->
+            <div class="card" style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; max-width: 400px;">
+                <img src="pak ari.jpeg" alt="Foto Agus Siswanto" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 15px;">
+                <div>
+                    <h3 style="margin: 0;">Kepala Jurusan</h3>
+                    <p style="margin: 5px 0 0;">ARI HIDAYAT</p>
+                </div>
+            </div>
+            
+            <!-- Ketua Kelas -->
+            <div class="card" style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; max-width: 400px;">
+                <img src="18. BINTANG FEBRIANTO.jpg" alt="Foto Agus Siswanto" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 15px;">
+                <div>
+                    <h3 style="margin: 0;">Ketua Kelas</h3>
+                    <p style="margin: 5px 0 0;">BINTANG</p>
+                </div>
+            </div>
+            
+            <!-- Wakil Ketua -->
+            <div class="card" style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; max-width: 400px;">
+                <img src="10. AHMAD ZAENI.jpg" alt="Foto Agus Siswanto" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 15px;">
+                <div>
+                    <h3 style="margin: 0;">Wakil Ketua</h3>
+                    <p style="margin: 5px 0 0;">ZAENI</p>
+                </div>
+            </div>
+            
+            <!-- Sekertaris -->
+            <div class="card" style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; max-width: 400px;">
+                <img src="30. FAYZA MARIA.jpg" alt="Foto Agus Siswanto" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 15px;">
+                <div>
+                    <h3 style="margin: 0;">Sekertaris</h3>
+                    <p style="margin: 5px 0 0;">FAYZA</p>
+                </div>
+            </div>
+            
+            <!-- Wakil Sekertaris -->
+            <div class="card" style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; max-width: 400px;">
+                <img src="9. AHMAD ZAENAL PRAYOGI.jpg" alt="Foto Agus Siswanto" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 15px;">
+                <div>
+                    <h3 style="margin: 0;">Wakil Sekertaris</h3>
+                    <p style="margin: 5px 0 0;">Yogi</p>
+                </div>
+            </div>
+            
+            <!-- Bendahara -->
+            <div class="card" style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; max-width: 400px;">
+                <img src="31. WIDYA.jpg" alt="Foto Agus Siswanto" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 15px;">
+                <div>
+                    <h3 style="margin: 0;">Bendahara</h3>
+                    <p style="margin: 5px 0 0;">WIDYA</p>
+                </div>
+            </div>
+            
+            <!-- Wakil Bendahara -->
+            <div class="card" style="display: flex; align-items: center; border: 1px solid #ccc; padding: 10px; max-width: 400px;">
+                <img src="27. FAIZIN FAREL SOVIAN.jpg" alt="Foto Agus Siswanto" style="width: 100px; height: 100px; border-radius: 50%; margin-right: 15px;">
+                <div>
+                    <h3 style="margin: 0;">Wakil Bendahara</h3>
+                    <p style="margin: 5px 0 0;">Farel</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="gallery" class="card-container">
+            <img src="fotbar.jpg" class="img-fluid" alt="..." style="width: 50%; height: auto;">
+            <img src="bengkel.jpg" class="img-fluid" alt="..." style="width: 50%; height: auto;">
+        </div>
+
+        <div id="jadwalPelajaran" class="card-container">
+            <div class="card">
+                <h3>Senin</h3>
+                <p> B7 TKR</p>
+                <p> B2</p>
+                <p> B8A TKR</p>
+                <p> Afdhal Ulum</p>
+                <p> B6 TKR</p>
+            </div>
+            <div class="card">
+                <h3>Selasa</h3>
+                <p> B. JAWA</p>
+                <p> SEJARAH</p>
+                <p> MATEMATIKA</p>
+                <p> B. INGGRIS</p>
+                <p> PPKN</p>
+            </div>
+            <div class="card">
+                <h3>Rabu</h3>
+                <p> B6 TKR PRODUKTIF</p>
+            </div>
+            <div class="card">
+                <h3>Kamis</h3>
+                <p> PJOK</p>
+                <p> B. INDONESIA</p>
+                <p> B8A TKR</p>
+                <p> PAI</p>
+           </div>
+           <div class="card">
+                <h3>Jumat</h3>
+                <p> B6 TKR</p>
+           </div>
+   
+ </div>
+        
+        <div id="kegiatanKelas" class="card-container">
+           <div class="card">
+                <h3>Kegiatan kelas</h3>
+                <p> Melakukan Kunjungan Industri</p>
+                <p> Mewarnai helem</p>
+            </div>
+       </div>
+
+  <footer style="text-align: center; padding: 20px; background-color: #B22222; color: white; border-radius: 0 0 30px 30px; margin-top: 20px;">
+    <img src="TKR.png" alt="Logo SMKN Tambakboyo" style="margin-bottom: 5px; width: 100px; height: auto;">
+    <p>&copy; 2024 SMKN Tambakboyo.</p>
+    <p>Kontak: info@smkntambakboyo.sch.id | Telepon: (0271) 123-456</p>
+  </footer>
+
+</body>
+</html>
